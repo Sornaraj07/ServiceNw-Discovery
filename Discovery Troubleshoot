@@ -1,0 +1,5 @@
+Linux 
+Error:
+No shell detected and probe parameter 'allow_unsupported_shells' is set to 'false'  ---- > service account issue
+
+Action : Service account creation proprly with SUDO permission
