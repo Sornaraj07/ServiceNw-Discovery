@@ -16,6 +16,10 @@ Windows:
 
 Error: Terminated the probe because the max timeout was exceeded: 300 seconds.
 Action :  Restart the WinRM services and still error priest kill PowerShell zombie sessions
+powershell.exe/conhost.exe
+Stop–Process powershell 
+taskkill /F /IM powershell.exe
+Solution: Restart the system, update the software, or try Killing the processes via CLI: taskkill /IM conhost.exe /F.
 
 Error: Can't connect to target host via WinRM service, and this MID server is set to connect via WinRM only
 Action :  Restart server and WinRM services
