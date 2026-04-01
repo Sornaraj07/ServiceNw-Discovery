@@ -1,5 +1,47 @@
-Linux 
+Linux: 
+------------
+Issue : - Not discovered and Serial number missing
+1. Service account password never expired
+2. Service account required SUDO permission
+3. After SUDO permission getting Isof : command not found Exit status :127 error
+   need to install lsof-4.94.0-3.el9.x86_64 utility tool
+
 Error:
 No shell detected and probe parameter 'allow_unsupported_shells' is set to 'false'  ---- > service account issue
-
 Action : Service account creation proprly with SUDO permission
+
+
+Windows:
+------------
+
+Error: Terminated the probe because the max timeout was exceeded: 300 seconds.
+Action :  Restart the WinRM services and still error priest kill PowerShell zombie sessions
+
+Error: Can't connect to target host via WinRM service, and this MID server is set to connect via WinRM only
+Action :  Restart server and WinRM services
+https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1116898#mcetoc_1g0uu6di36 
+
+Error : Could not find any valid credentials to authenticate the target for type [Windows]
+A)gwmi : The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
+Action : Reboot server and Repair WMI repository and WMI services are running. (Trent micro may block) or Allow Local firewall
+	Run --> winmgmt/root/wmi/config 
+
+B)gwmi : Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+Action : Service account not having Admin access.
+
+C)Port 5986 & 135 opened, Credentials validated successfully.
+Still getting error “Could not find any valid credentials to authenticate the target for type [Windows]”
+Action : Remote shell access needs to be enabled.
+Computer Configuration → Administrative Templates → Windows Components → Windows Remote Shell → “Allow Remote Shell Access” = Enabled.
+ Rebooting is not required.
+ 
+D)Discovery error log - Could not find any valid credentials to authenticate the target for type [Windows]
+When I try to check the credentials via WMI query getting error "exception from HRESULT: 0x80070776" 
+Action : Verify the GPO policy blocked
+
+Credentials Validation: Tests can be executed via PowerShell.
+Cmd :   gwmi win32_operatingsystem -computer 171.74.60.160 -credential 'SVC-ENS-DISC@Lifeplansinc.com' 
+
+
+
+
